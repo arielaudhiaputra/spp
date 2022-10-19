@@ -53,7 +53,7 @@ class Spp extends CI_Controller {
         $this->db->where('id_spp', $this->input->post('id_spp'));
         $this->db->update('spp', $data);
         $this->session->set_flashdata('spp', '<div class="alert alert-success" role="alert">data spp berhasil diubah</div>');
-		redirect('spp');
+		redirect('admin/spp');
     }
 
 
@@ -61,7 +61,7 @@ class Spp extends CI_Controller {
     {
         $this->db->where('id_spp', $id);
         $this->db->delete('spp');
-        $this->session->set_flashdata('spp', '<div class="alert alert-success" role="alert">data spp berhasil dihapuscomposer require mpdf/mpdf</div>');
+        $this->session->set_flashdata('spp', '<div class="alert alert-success" role="alert">data spp berhasil dihapus</div>');
 		redirect('admin/spp');
     }
 

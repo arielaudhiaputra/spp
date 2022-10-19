@@ -42,7 +42,7 @@ class Kelas extends CI_Controller {
         $this->db->set('nama_kelas', $data);
         $this->db->update('kelas');
         $this->session->set_flashdata('kelas', '<div class="alert alert-success" role="alert">Data kelas berhasil diubah!</div>');
-        redirect('kelas');
+        redirect('admin/kelas');
     }
 
     public function hapus_kelas($id_kelas)

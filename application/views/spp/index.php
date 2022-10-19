@@ -51,7 +51,7 @@
 						<table id="table" class="table table-striped datatable">
 							<thead>
 								<th>No</th>
-								<th>Tahun Bayar</th>
+								<th>Tahun</th>
                                 <th>Nominal</th>
 								<th>Aksi</th>
 							</thead>
