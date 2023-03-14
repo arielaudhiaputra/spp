@@ -27,7 +27,7 @@ class User_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('users');
-        $this->db->where('level', 'Admin');
+        $this->db->where('level', 'Petugas');
         $query = $this->db->get()->result_array();
         return $query;
     }

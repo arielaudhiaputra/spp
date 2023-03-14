@@ -2,10 +2,10 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid" >
 					<div class="laptop">
-                    <?= $this->session->flashdata('profile'); ?>
                     <!-- Page Heading -->
                     <div class="row mb-5">
 						<div class="col-12 col-md-8">
+                        <?= $this->session->flashdata('profile'); ?>
 							<div class="card">
 
 								<form action="<?= base_url('profile'); ?>" method="post">
@@ -46,18 +46,25 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-xs-12 col-sm-6">
+                                            <div class="col-xs-12 col-sm-4">
                                                 <div class="form-group">
                                                     <label for="nisn">NISN : </label>
                                                     <input type="text" value="<?= $profile['nisn'] ?>" name="nisn" id="nisn"  class="form-control" placeholder="Masukan NISN">
                                                     <?php echo form_error('nisn', '<small class="text-danger pl-3">', '</small>')?>
                                                 </div>
                                             </div>
-                                            <div class="col-xs-12 col-sm-6">
+                                            <div class="col-xs-12 col-sm-4">
                                                 <div class="form-group">
                                                     <label for="nis">NIS : </label>
                                                     <input type="text" value="<?= $profile['nis'] ?>" name="nis" id="nis"  class="form-control" placeholder="Masukana NIS">
                                                     <?php echo form_error('nis', '<small class="text-danger pl-3">', '</small>')?>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="no_telp">No.Telp : </label>
+                                                    <input type="text" value="<?= $profile['no_telp'] ?>" name="no_telp" id="no_telp"  class="form-control" placeholder="Masukana No.Telp">
+                                                    <?php echo form_error('no_telp', '<small class="text-danger pl-3">', '</small>')?>
                                                 </div>
                                             </div>
                                         </div>

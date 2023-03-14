@@ -58,7 +58,6 @@ class User extends CI_Controller {
                 'photo' => "default.png",
                 'id_kelas' => $this->input->post('id_kelas'),
                 'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
-                'id_spp' => ""
             ];
             $this->db->insert('users', $data);
             $this->session->set_flashdata('murid', '<div class="alert alert-success" role="alert">Data Murid Berhasil ditambahkan!</div>');
@@ -105,9 +104,9 @@ class User extends CI_Controller {
 
     public function hapus_murid($id)
     {
-        $this->db->where('id', $this->input->post('id'));
-        $this->db->update('users', $data);
-        $this->session->set_flashdata('murid', '<div class="alert alert-success" role="alert">Data Murid Berhasil diubah!</div>');
+        $this->db->where('id', $id);
+        $this->db->delete('users');
+        $this->session->set_flashdata('murid', '<div class="alert alert-success" role="alert">Data Murid Berhasil dihapus!</div>');
         redirect('admin/user');
     }
 
@@ -136,7 +135,8 @@ class User extends CI_Controller {
             'email' => htmlspecialchars($this->input->post('email')),
             'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
             'photo' => 'default.png',
-            'level' => 'Admin',
+            'level' => "Petugas",
+            'no_telp' => NULL
         ];
 
         $this->db->insert('users', $data);
@@ -150,7 +150,7 @@ class User extends CI_Controller {
             'name' => htmlspecialchars($this->input->post('name')),
             'email' => htmlspecialchars($this->input->post('email')),
             'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
-            'level' => 'Admin',
+            'level' => "Petugas",
         ];
         if ($this->input->post('password') !== '') {
             $data['password'] = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
@@ -164,9 +164,9 @@ class User extends CI_Controller {
 
     public function hapus_petugas($id)
     {
-        $this->db->where('id', $this->input->post('id'));
-        $this->db->update('users', $data);
-        $this->session->set_flashdata('petugas', '<div class="alert alert-success" role="alert">Data Murid Berhasil diubah!</div>');
+        $this->db->where('id', $id);
+        $this->db->delete('users');
+        $this->session->set_flashdata('petugas', '<div class="alert alert-success" role="alert">Data Petugas Berhasil Dihapus!</div>');
         redirect('admin/user/petugas');
     }
 

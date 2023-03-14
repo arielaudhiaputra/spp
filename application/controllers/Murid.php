@@ -7,9 +7,13 @@ class Murid extends CI_Controller {
         parent::__construct();
         if ($this->session->userdata('level') == NULL) {
             redirect('auth');
+        } elseif($this->session->userdata('level') != 'Murid'){
+            redirect('auth/blocked');
         }
         $this->load->model('Spp_model', 'spp');
+        $this->load->model('Transaksi_model', 'transaksi');
     }
+
     public function index()
     {
         $data['profile'] = $this->db->get_where('users', ['id' => $this->session->userdata('id')])->row_array();
@@ -22,4 +26,5 @@ class Murid extends CI_Controller {
         $this->load->view('murid/index', $data);
         $this->load->view('layouts/footer');
     }
+
 }

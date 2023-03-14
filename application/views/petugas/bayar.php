@@ -3,7 +3,7 @@
 		<div class="col-12">
 		<?= $this->session->flashdata('pembayaran'); ?>
 			<div class="card">
-				<form action="<?= base_url('admin/pembayaran/proses_tambah') ?>" method="POST">
+				<form action="<?= base_url('petugas/pembayaran/proses_tambah') ?>" method="POST">
 				<input type="text" name="id_users" id="id_users" hidden value="<?= $user['id'] ?>">
 					<div class="card-header">
 						<h4 class="card-title">SPP <?= $user['name']; ?></h4>
@@ -50,13 +50,9 @@
 								</div>
 							</div>
 
-							<div class="col-xs-12 col-sm-2 mt-1 float-right">
+							<div class="col-xs-12 col-sm-2 mt-1">
                                 <br>
-                                <button type="submit" class="btn btn-success btn-block"><i class="fa fa-plus"></i> Tambah </button>
-							</div>
-							<div class="col-xs-12 col-sm-2 mt-1 float-right btn-block">
-                                <br>
-                                <a href="<?= base_url('admin/pembayaran/pdf/') . $user['id'] ?>" type="submit" class="btn btn-danger btn-block"><i class="fa fa-file"></i> PDF </a>
+                                <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i> Tambah </button>
 							</div>
 						</div>
 					</div>
@@ -91,7 +87,7 @@
                                         <td>Rp. <?= number_format( $p['jumlah_bayar']) ?></td>
                                         <td><?= $p['tgl_bayar'] ?></td>
 										<td>
-											<a href="<?= base_url('admin/pembayaran/hapus_pembayaran/') . $p['id_pembayaran'] ?>" class="btn btn-danger btn-sm btn-delete ml-2" onclick="return confirm('apakah anda yakin ingin menghapus data pembayaran ini?')"><i class="fa fa-trash"></i> Hapus</a>
+											<a href="<?= base_url('petugas/pembayaran/hapus_pembayaran/') . $p['id_pembayaran'] ?>" class="btn btn-danger btn-sm btn-delete ml-2" onclick="return confirm('apakah anda yakin ingin menghapus data pembayaran ini?')"><i class="fa fa-trash"></i> Hapus</a>
 										</td>
 									</tr>
 								<?php $i++ ?>

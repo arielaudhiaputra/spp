@@ -1,5 +1,5 @@
   <!-- Sidebar -->
-  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+  <ul class="navbar-nav sidebar sidebar-dark accordion" style="background-color: #4F6E57;" id="accordionSidebar">
 
 <!-- Sidebar - Brand -->
 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
@@ -55,6 +55,13 @@
 			<span>Pembayaran SPP</span></a>
 	</li>
 
+	<?php if($title == "Transaksi"): ?>
+	<li class="nav-item active">
+	<?php else: ?>
+		<li class="nav-item">
+	<?php endif; ?>
+
+
 	<?php if($title == "SPP"): ?>
 	<li class="nav-item active">
 	<?php else: ?>
@@ -92,6 +99,16 @@
 			<i class="fas fa-fw fa-tasks"></i>
 			<span>Kelas</span></a>
 	</li>
+<?php elseif($this->session->userdata('level') == 'Petugas'): ?>
+	<?php if($title == "Pembayaran SPP"): ?>
+	<li class="nav-item active">
+	<?php else: ?>
+		<li class="nav-item">
+	<?php endif; ?>
+		<a class="nav-link" href="<?= base_url('petugas/pembayaran') ?>">
+			<i class="fas fa-fw fa-wallet"></i>
+			<span>Pembayaran SPP</span></a>
+	</li>
 <?php else: ?>
 	<?php if($title == "SPPku"): ?>
 	<li class="nav-item active">
@@ -102,6 +119,17 @@
 			<i class="fas fa-fw fa-book-open"></i>
 			<span>SPP Saya</span></a>
 	</li>
+
+	<?php if($title == "Transaksi"): ?>
+	<li class="nav-item active">
+	<?php else: ?>
+		<li class="nav-item">
+	<?php endif; ?>
+		<a class="nav-link" href="<?= base_url('snap') ?>">
+			<i class="fas fa-fw fa-plus"></i>
+			<span>Transaksi</span></a>
+	</li>
+
 <?php endif; ?>
 
 

@@ -14,6 +14,7 @@ class Auth extends CI_Controller {
             $this->load->view('layouts/auth_footer');
         } else{
             $email = $this->input->post('email');
+            $password = $this->input->post('password');
             //cek email
             $user = $this->db->get_where('users', ['email' => $email])->row_array();
 

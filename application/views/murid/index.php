@@ -11,6 +11,7 @@
                     <table id="table" class="table table-striped datatable">
 							<thead>
 								<th>No</th>
+								<th>Tahun</th>
                                 <th>Bulan Bayar</th>
                                 <th>Jumlah Bayar</th>
                                 <th>Tanggal</th>
@@ -20,8 +21,9 @@
 								<?php foreach($user as $p): ?>
 									<tr>
 										<td><?= $i ?></td>
+										<td><?= $p['tahun'] ?></td>
 										<td><?= $p['bulan_bayar'] ?></td>
-                                        <td><?= $p['jumlah_bayar'] ?></td>
+										<td>Rp. <?= number_format( $p['jumlah_bayar']) ?></td>
                                         <td><?= $p['tgl_bayar'] ?></td>
 									</tr>
 								<?php $i++ ?>

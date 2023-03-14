@@ -4,7 +4,7 @@
 		<?= $this->session->flashdata('murid'); ?>
 			<div class="card">
 				<div class="card-header d-block">
-					<h4 class="card-title float-left">Data Murid / <span><a href="<?= base_url('admin/user/petugas') ?>">Petugas</a></span></h4>
+					<h4 class="card-title float-left">Data Murid | <span><a href="<?= base_url('admin/user/petugas') ?>">Petugas</a></span></h4>
 					<div class="d-inline ml-auto float-right">
 						<a href="<?= base_url('admin/user/tambah_murid') ?>" class="btn btn-success"><i class="fa fa-plus"></i> Tambah</a>
 						<a href="<?= base_url('admin/user/pdf_murid') ?>" type="submit" class="btn btn-danger"><i class="fa fa-file"></i> PDF </a>
@@ -35,7 +35,7 @@
 										</td>
 										<td>
 											<a href="<?= base_url('admin/user/edit_murid/') . $s['id'] ?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
-											<a href="<?= base_url('admin/user/hapus_user/') . $s['id'] ?>" class="btn btn-danger btn-sm btn-delete ml-2" onclick="return confirm('apakah anda yakin ingin menghapus data karyawan ini ?')"><i class="fa fa-trash"></i> Hapus</a>
+											<a href="<?= base_url('admin/user/hapus_murid/') . $s['id'] ?>" class="btn btn-danger btn-sm btn-delete ml-2" onclick="return confirm('apakah anda yakin ingin menghapus data karyawan ini ?')"><i class="fa fa-trash"></i> Hapus</a>
 										</td>
 									</tr>
 								<?php $i++; ?>

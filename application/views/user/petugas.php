@@ -4,7 +4,7 @@
 		<?= $this->session->flashdata('petugas'); ?>
 			<div class="card">
 				<div class="card-header d-block">
-					<h4 class="card-title float-left">Data Petugas / <span><a href="<?= base_url('admin/user') ?>">Data Murid</a></span></h4>
+					<h4 class="card-title float-left">Data Petugas | <span><a href="<?= base_url('admin/user') ?>">Murid</a></span></h4>
 					<div class="d-inline ml-auto float-right">
 						<a  data-toggle="modal" data-target="#tambahPetugasModel" class="btn btn-success"><i class="fa fa-plus"></i> Tambah</a>
 						<a href="<?= base_url('admin/user/pdf_petugas') ?>" type="submit" class="btn btn-danger"><i class="fa fa-file"></i> PDF </a>
@@ -74,12 +74,12 @@
 
 		 <div class="form-group">
 			 <label for="email">Email :</label>
-			<input type="tel" class="form-control" id="email" name="email" value="<?= $s['email']; ?>" placeholder="Masukan email" required>
+			<input type="text" class="form-control" id="email" name="email" value="<?= $s['email']; ?>" placeholder="Masukan email" required>
          </div>
 
 		 <div class="form-group">
 			 <label for="password">Password :</label>
-			<input type="tel" class="form-control" id="password" name="password" placeholder="********">
+			<input type="password" class="form-control" id="password" name="password" placeholder="********">
 			<span class="text-danger">Tidak perlu diisi jika tidak ingin diganti!</span>
          </div>
       </div>
@@ -103,8 +103,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-        <form action="<?= base_url('admin/user/tambah_petugas') ?>" method="POST">
-       	<input type="hidden" name="id" id="id" value="">
+        <form action="<?= base_url('admin/user/tambah_petugas') ?>" method="post">
       <div class="modal-body">
          <div class="form-group">
 		 	<label for="name">Name :</label>
@@ -113,12 +112,12 @@
 
 		 <div class="form-group">
 			 <label for="email">Email :</label>
-			<input type="tel" class="form-control" id="email" name="email" placeholder="Masukan email" required>
+			<input type="text" class="form-control" id="email" name="email" placeholder="Masukan email" required>
          </div>
 
 		 <div class="form-group">
 			 <label for="password">Password :</label>
-			<input type="tel" class="form-control" id="password" name="password" placeholder="Masukan Password">
+			<input type="password" class="form-control" id="password" name="password" placeholder="Masukan Password">
          </div>
       </div>
       <div class="modal-footer">

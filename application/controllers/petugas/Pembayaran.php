@@ -7,7 +7,7 @@ class Pembayaran extends CI_Controller {
         parent::__construct();
         if ($this->session->userdata('level') == NULL) {
             redirect('auth');
-        } elseif($this->session->userdata('level') != 'Admin'){
+        } elseif($this->session->userdata('level') != 'Petugas'){
             redirect('auth/blocked');
         }
         $this->load->model('Spp_model', 'spp');
@@ -22,7 +22,7 @@ class Pembayaran extends CI_Controller {
         $this->load->view('layouts/header', $data);
         $this->load->view('layouts/sidebar', $data);
         $this->load->view('layouts/topbar', $data);
-        $this->load->view('pembayaran/index', $data);
+        $this->load->view('petugas/index', $data);
         $this->load->view('layouts/footer');
     }
 
@@ -36,7 +36,7 @@ class Pembayaran extends CI_Controller {
         $this->load->view('layouts/header', $data);
         $this->load->view('layouts/sidebar', $data);
         $this->load->view('layouts/topbar', $data);
-        $this->load->view('pembayaran/bayar', $data);
+        $this->load->view('petugas/bayar', $data);
         $this->load->view('layouts/footer');
     }
 
@@ -51,7 +51,7 @@ class Pembayaran extends CI_Controller {
         ];
         $this->db->insert('pembayaran', $data);
         $this->session->set_flashdata('pembayaran', '<div class="alert alert-success" role="alert">Pembayaran berhasil!</div>');
-        redirect('admin/pembayaran/tambah_pembayaran/' . $this->input->post('id_users'));
+        redirect('petugas/pembayaran/tambah_pembayaran/' . $this->input->post('id_users'));
     }
 
     public function hapus_pembayaran($id)
@@ -62,16 +62,6 @@ class Pembayaran extends CI_Controller {
         $this->db->where('id_pembayaran', $id);
         $this->db->delete('pembayaran');
         $this->session->set_flashdata('pembayaran', '<div class="alert alert-success" role="alert">Pembayaran berhasil dihapus!</div>');
-        redirect('admin/pembayaran/tambah_pembayaran/'. $id_murid);
-    }
-
-    public function pdf($id)
-    {
-        $data['users'] = $this->db->get_where('users', ['id' => $id])->row_array();
-        $data['bayar'] = $this->spp->get_spp($id);
-        $this->load->library('pdf');
-        $this->pdf->setPaper('A4', 'potrait');
-		$this->pdf->filename = "laporan-data-pembayaran-spp";
-		$this->pdf->load_view('pembayaran/pdf', $data);
+        redirect('petugas/pembayaran/tambah_pembayaran/'. $id_murid);
     }
 }
