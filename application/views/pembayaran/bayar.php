@@ -1,27 +1,26 @@
-<div class="container laptop">
+
+<div class="container-fluid">
 	<div class="row">
 		<div class="col-12">
 		<?= $this->session->flashdata('pembayaran'); ?>
+		<form action="<?= base_url('admin/pembayaran/proses_tambah') ?>" method="POST">
+		<input type="hidde" name="id_users" id="id_users" hidden value="<?= $user['id'] ?>">
 			<div class="card">
-				<form action="<?= base_url('admin/pembayaran/proses_tambah') ?>" method="POST">
-				<input type="text" name="id_users" id="id_users" hidden value="<?= $user['id'] ?>">
-					<div class="card-header">
-						<h4 class="card-title">SPP <?= $user['name']; ?></h4>
-                    </div>
+					<div class="card-header d-block">
+						<h4 class="card-title float-left">SPP Saya</h4>
+						<div class="d-inline ml-auto float-right" style="margin: 10px;">
+							<h4> Belum dibayar : Rp. <?php
+								if ($total['jumlah_bayar'] == NULL) {
+									echo number_format($nominal['nominal'] - 0);
+								} else{
+									echo number_format($nominal['nominal'] - $total['jumlah_bayar']);
+								}
+							?></h4>
+						</div>
+					</div>
 
-					<div class="card-body border-top py-0 my-3">
+					<div class="card-body">
 						<div class="row mt-3">
-							<div class="col-xs-12 col-sm-2">
-								<div class="form-group">
-									<label for="id_spp">Tahun Bayar : </label>
-									<select name="id_spp" id="id_spp" class="form-control" required>
-										<option disabled selected hidden required>-- Tahun --</option>
-										<?php foreach($spp as $s): ?>
-											<option value="<?= $s['id_spp']; ?>"><?= $s['tahun']; ?></option>
-										<?php endforeach; ?>
-									</select>
-								</div>
-							</div>
 
 							<div class="col-xs-12 col-sm-3">
                                 <div class="form-group">
@@ -42,12 +41,16 @@
 											<option value="Desember">Desember</option>
 									</select>
 								</div>
+								<?= form_error('bulan_bayar', '<small class="text-danger pl-3">', '</small>'); ?>
 							</div>
-							<div class="col-xs-12 col-sm-3">
-                                <div class="form-group">
-									<label for="jumlah_bayar">Jumlah Bayar : </label>
-									<input type="text" name="jumlah_bayar" id="jumlah_bayar" class="form-control" value="Rp. 350,000" placeholder="Rp. 350,000" disabled required>
+
+
+							<div class="col-xs-12 col-sm-4">
+								<div class="form-group">
+									<label for="jumlah_bayar">Jumlah Bayar :</label>
+									<input type="text" class="form-control" id="jumlah_bayar" name="jumlah_bayar" placeholder="Jumlah Bayar">
 								</div>
+								<?= form_error('jumlah_bayar', '<small class="text-danger pl-3">', '</small>'); ?>
 							</div>
 
 							<div class="col-xs-12 col-sm-2 mt-1 float-right">

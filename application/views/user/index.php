@@ -18,6 +18,7 @@
 								<th>Name</th>
 								<th>Kelas</th>
 								<th>NISN/NIS</th>
+								<th>Tahun Angkatan</th>
 								<th>Aksi</th>
 							</thead>
 							<tbody>
@@ -33,6 +34,7 @@
 												NIS: <?= $s['nis']; ?>
 											</address>
 										</td>
+										<td><?= $s['tahun']; ?></td>
 										<td>
 											<a href="<?= base_url('admin/user/edit_murid/') . $s['id'] ?>" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Edit</a>
 											<a href="<?= base_url('admin/user/hapus_murid/') . $s['id'] ?>" class="btn btn-danger btn-sm btn-delete ml-2" onclick="return confirm('apakah anda yakin ingin menghapus data karyawan ini ?')"><i class="fa fa-trash"></i> Hapus</a>

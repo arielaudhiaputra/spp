@@ -5,7 +5,11 @@
 			<div class="card">
 				<div class="card-header d-block">
 					<h4 class="card-title float-left">SPP Saya</h4>
+					<div class="d-inline ml-auto float-right" style="margin: 10px;">
+						<h3> Belum dibayar : Rp. <?= number_format($nominal['nominal'] - $spp['jumlah_bayar']) ?></h3>
+					</div>
 				</div>
+				
 				<div class="card-body">
 					<div class="table-responsive">
                     <table id="table" class="table table-striped datatable">

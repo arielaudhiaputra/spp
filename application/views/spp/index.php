@@ -1,4 +1,4 @@
-<div class="container laptop">
+<div class="container-fluid">
 	<div class="row">
 		<div class="col-12">
         <?= $this->session->flashdata('spp'); ?>
@@ -61,7 +61,7 @@
 									<tr>
                                         <td><?= $i ?></td>
                                         <td><?= $s['tahun'] ?></td>
-										<td>Rp. <?= number_format($s['nominal']) ?>/bulan</td>
+										<td>Rp. <?= number_format($s['nominal']) ?></td>
 										<td width="20%">
 											<a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editSppModal<?= $s['id_spp']; ?>"><i class="fa fa-edit"></i> Edit</a>
 											<a href="<?= base_url('admin/spp/hapus_spp/') . $s['id_spp'] ?>" class="btn btn-danger btn-sm btn-delete" onclick="return confirm('apakah anda yakin ingin menghapus data barang ini ?')"><i class="fa fa-trash"></i> Hapus</a>

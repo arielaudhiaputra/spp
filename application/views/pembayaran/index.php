@@ -14,6 +14,7 @@
                                 <th>NISN</th>
 								<th>NIS</th>
 								<th>Kelas</th>
+								<th>Status</th>
 								<th>Aksi</th>
 							</thead>
 							<tbody>
@@ -25,6 +26,14 @@
 										<td><?=  $s['nisn'] ?></td>
 										<td><?=  $s['nis'] ?></td>
 										<td><?=  $s['nama_kelas'] ?></td>
+										<td <?php if($s['status'] == "lunas"): ?>
+												class="text-success"
+											<?php else: ?>
+												class="text-danger"
+											<?php endif; ?>
+										>
+											<?=  $s['status'] ?>
+										</td>
 										<td>
 											<a href="<?= base_url('admin/pembayaran/tambah_pembayaran/') . $s['id'] ?>" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Bayar</a>
 										</td>

@@ -21,7 +21,8 @@ class Profile extends CI_Controller {
 		$this->form_validation->set_rules('password', 'Password', 'trim|min_length[6]');
 
         if ($this->form_validation->run() == false) {
-            $data['user'] = $this->user->get_user($this->session->userdata('id'));
+            $id = $this->session->userdata('id');
+            $data['user'] = $this->user->get_user($id);
             $data['profile'] = $this->db->get_where('users', ['id' => $this->session->userdata('id')])->row_array();
             $data['kelas'] = $this->db->get('kelas')->result_array();
             $data['title'] = "Profile";
@@ -33,16 +34,14 @@ class Profile extends CI_Controller {
         } else{
             $data = [
                 'name' => htmlspecialchars($this->input->post('name')),
-                'id_kelas' => $this->input->post('id_kelas'),
-                'nisn' => $this->input->post('nisn'),
-                'nis' => $this->input->post('nis'),
                 'no_telp' => $this->input->post('no_telp'),
                 'email' => htmlspecialchars($this->input->post('email')),
                 'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
             ];
 
-            if ($this->input->post('password') !== '') {
-                $data['password'] = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
+            $profile = $this->db->get_where('users', ['id' => $this->session->userdata('id')])->row_array();
+            if ($this->input->post('password') == '') {
+                $data['password'] = $profile['password'];
             }
 
             $this->db->where('id', $this->input->post('id'));

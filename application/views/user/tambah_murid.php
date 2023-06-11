@@ -20,7 +20,20 @@
 								</div>
 							</div>
 
-                            <div class="col-xs-12 col-sm-6">
+                            <div class="col-xs-12 col-sm-3">
+                                <div class="form-group">
+                                    <label for="id_spp">Angkatan : </label>
+                                    <select name="id_spp" id="id_spp" class="form-control">
+                                        <option value="" disabled selected hidden>-- Pilih Kelas --</option>
+                                        <?php foreach($spp as $k): ?>
+                                            <option value="<?= $k['id_spp']; ?>"><?= $k['tahun']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <?= form_error('id_spp', '<small class="text-danger pl-3">', '</small>'); ?>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-3">
                                 <div class="form-group">
                                     <label for="id_kelas">Kelas : </label>
                                     <select name="id_kelas" id="id_kelas" class="form-control">

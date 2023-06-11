@@ -29,9 +29,11 @@ class User extends CI_Controller {
     public function tambah_murid()
     {
         $data['kelas'] = $this->db->get('kelas')->result_array();
+        $data['spp'] = $this->db->get('spp')->result_array();
         $data['title'] = "Login";
         $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
         $this->form_validation->set_rules('id_kelas', 'Kelas', 'required|trim');
+        $this->form_validation->set_rules('id_spp', 'Tahun Angkatan', 'required|trim');
         $this->form_validation->set_rules('nisn', 'NISN', 'required|trim|numeric');
         $this->form_validation->set_rules('nis', 'nis', 'required|trim|numeric');
 		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
@@ -58,6 +60,8 @@ class User extends CI_Controller {
                 'photo' => "default.png",
                 'id_kelas' => $this->input->post('id_kelas'),
                 'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+                'id_spp' => $this->input->post('id_spp'),
+                'status' => "belum lunas"
             ];
             $this->db->insert('users', $data);
             $this->session->set_flashdata('murid', '<div class="alert alert-success" role="alert">Data Murid Berhasil ditambahkan!</div>');
@@ -69,8 +73,8 @@ class User extends CI_Controller {
     {
         $data['murid'] = $this->user->get_user($id);
         $data['kelas'] = $this->db->get('kelas')->result_array();
+        $data['spp'] = $this->db->get('spp')->result_array();
         $data['title'] = "Edit Data Murid";
-        $data['kelas'] = $this->db->get('kelas')->result_array();
         $data['profile'] = $this->db->get_where('users', ['id' => $this->session->userdata('id')])->row_array();
         $data['title'] = "Edit Data Murid";
         $this->load->view('layouts/header', $data);
@@ -90,15 +94,18 @@ class User extends CI_Controller {
             'email' => htmlspecialchars($this->input->post('email')),
             'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
             'level' => 'Murid',
+            'id_spp' => $this->input->post('id_spp')
         ];
-        if ($this->input->post('password') !== '') {
-            $data['password'] = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
+
+        $password = $this->db->get_where('users', ['id' => $this->input->post('id')])->row_array();
+        if ($this->input->post('password') == '') {
+            $data['password'] = $password['password'];
         }
 
         $this->db->where('id', $this->input->post('id'));
         $this->db->update('users', $data);
         $this->session->set_flashdata('murid', '<div class="alert alert-success" role="alert">Data Murid Berhasil diubah!</div>');
-        redirect('admin/user');
+        redirect('admin/user/edit_murid/' . $this->input->post('id'));
 
     }
 
@@ -111,9 +118,6 @@ class User extends CI_Controller {
     }
 
 
-
-
-    // Admin
     public function petugas()
     {
         $data['profile'] = $this->db->get_where('users', ['id' => $this->session->userdata('id')])->row_array();
@@ -152,8 +156,10 @@ class User extends CI_Controller {
             'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
             'level' => "Petugas",
         ];
-        if ($this->input->post('password') !== '') {
-            $data['password'] = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
+
+        $password = $this->db->get_where('id', ['id' => $this->input->post('id')])->row_array();
+        if ($this->input->post('password') == '') {
+            $data['password'] = $password['password'];
         }
 
         $this->db->where('id', $this->input->post('id'));

@@ -13,4 +13,13 @@ class Spp_model extends CI_Model
         $query = $this->db->get()->result_array();
         return $query;
     }
+
+    public function get_total($id)
+    {
+        $this->db->select('id_pembayaran, id_users, tgl_bayar, bulan_bayar, id_spp, SUM(jumlah_bayar) as jumlah_bayar');
+        $this->db->from('pembayaran');
+        $this->db->where('id_users', $id);
+        $query = $this->db->get()->row_array();
+        return $query;
+    }
 }

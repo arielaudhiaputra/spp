@@ -30,6 +30,7 @@ class Snap extends CI_Controller {
             redirect('auth/blocked');
         }
         $this->load->model('Transaksi_model', 'transaksi');
+		$this->load->model('Spp_model', 'spp');
 
         $params = array('server_key' => 'SB-Mid-server-WrnlcKyj1zVCIJ5-XVbS1fkw', 'production' => false);
 		$this->load->library('midtrans');
@@ -42,6 +43,10 @@ class Snap extends CI_Controller {
 		$data['profile'] = $this->db->get_where('users', ['id' => $this->session->userdata('id')])->row_array();
         $data['title'] = "Transaksi";
 		$data['spp'] = $this->db->get('spp')->result_array();
+		$spp = $this->db->get_where('users', ['id' => $this->session->userdata('id')])->row_array();
+		$total = $this->db->get_where('spp', ['id_spp' => $spp['id_spp']])->row_array();
+		$jumlah = $this->spp->get_total($this->session->userdata('id'));
+		$data['nominal'] = $total['nominal'] - $jumlah['jumlah_bayar'];
 		$data['transaksi'] = $this->transaksi->get_transaksi_user($this->session->userdata('id'));
 
 		$this->load->view('layouts/header', $data);
@@ -58,13 +63,13 @@ class Snap extends CI_Controller {
 		// Required
 		$transaction_details = array(
 		  'order_id' => rand(),
-		  'gross_amount' => 350000, // no decimal allowed for creditcard
+		  'gross_amount' => $this->input->post('jumlah_bayar'), // no decimal allowed for creditcard
 		);
 
 		// Optional
 		$item1_details = array(
 		  'id' => 'a1',
-		  'price' => 350000,
+		  'price' => $this->input->post('jumlah_bayar'),
 		  'quantity' => 1,
 		  'name' => "Pembayaran SPP"
 		);
@@ -137,6 +142,7 @@ class Snap extends CI_Controller {
 
     public function finish()
     {
+		$spp = $this->db->get_where('users', ['id' => $this->session->userdata('id')])->row_array();
     	$result = json_decode($this->input->post('result_data'), true);
     	$data = [
 			'id_users' => $this->session->userdata('id'),
@@ -147,7 +153,7 @@ class Snap extends CI_Controller {
 			'transaction_status' => $result['transaction_status'],
 			'bank' => $result['va_numbers'][0]['bank'],
 			'va_number' => $result['va_numbers'][0]['va_number'],
-			'id_spp' => $this->input->post('id_spp'),
+			'id_spp' => $spp['id_spp'],
 			'bulan_bayar' => $this->input->post('bulan_bayar'),
 			'pdf_url' => $result['pdf_url'],
 			'finish_redirect_url' => $result['finish_redirect_url'],
@@ -158,13 +164,26 @@ class Snap extends CI_Controller {
 			'id_users' => $this->session->userdata('id'),
 			'tgl_bayar' => date('Y-m-d'),
 			'bulan_bayar' => $this->input->post('bulan_bayar'),
-			'id_spp' => $this->input->post('id_spp'),
+			'id_spp' => $spp['id_spp'],
 			'jumlah_bayar' => $result['gross_amount'],
 		];
 
-		$this->db->insert('transaksi', $data);
-		$this->db->insert('pembayaran', $data_pembayaran);
-		$this->session->set_flashdata('transaksi', '<div class="alert alert-success" role="alert">Transaksi berhasil!</div>');
-        redirect('snap');
+		$bayar = $this->db->get_where('spp', ['id_spp' => $spp['id_spp']])->row_array();
+		$total = $this->spp->get_total($this->session->userdata('id'));
+        $jumlah = $bayar['nominal'] - $total['jumlah_bayar'];
+
+		if ($jumlah -  $this->input->post('jumlah_bayar') == 0) {
+			$data_status = [
+				'status' => "lunas"
+			];
+
+			$this->db->where('id', $this->session->userdata('id'));
+			$this->db->update('users', $data_status);
+			$this->db->insert('transaksi', $data);
+			$this->db->insert('pembayaran', $data_pembayaran);
+			$this->session->set_flashdata('transaksi', '<div class="alert alert-success" role="alert">Transaksi berhasil!</div>');
+			redirect('snap');
+		}
+
     }
 }

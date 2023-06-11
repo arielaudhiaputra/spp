@@ -1,6 +1,7 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-12">
+		<?= $this->session->flashdata('murid'); ?>
 			<div class="card">
 				<form action="<?= base_url('admin/user/proses_edit_murid') ?>" method="post">
                     <input type="text" name="id" id="id" hidden value="<?= $murid['id'] ?>">
@@ -21,12 +22,31 @@
 								</div>
 							</div>
 
-                            <div class="col-xs-12 col-sm-6">
+                            <div class="col-xs-12 col-sm-3">
                                 <div class="form-group">
-									<label for="id_kelas">kelas : </label>
-									<input value="<?= $murid['nama_kelas'] ?>" type="text" name="id_kelas" id="id_kelas" disabled class="form-control" placeholder="Masukana Nama Lengkap Murid">
+									<label for="id_kelas">Kelas : </label>
+                                    <select name="id_kelas" id="id_kelas" class="form-control">
+                                        <option value="<?= $murid['id_kelas'] ?>" selected hidden><?= $murid['nama_kelas'] ?></option>
+                                        <?php foreach($kelas as $k): ?>
+                                            <option value="<?= $k['id_kelas']; ?>"><?= $k['nama_kelas']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
 								</div>
                             </div>
+
+							<div class="col-xs-12 col-sm-3">
+                                <div class="form-group">
+                                    <label for="id_spp">Angkatan : </label>
+                                    <select name="id_spp" id="id_spp" class="form-control">
+                                        <option value="<?= $murid['id_spp'] ?>" selected hidden><?= $murid['tahun'] ?></option>
+                                        <?php foreach($spp as $k): ?>
+                                            <option value="<?= $k['id_spp']; ?>"><?= $k['tahun']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <?= form_error('id_spp', '<small class="text-danger pl-3">', '</small>'); ?>
+                                </div>
+                            </div>
+
 						</div>
 
 						<div class="row">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 14, 2023 at 01:14 AM
+-- Generation Time: Mar 16, 2023 at 01:44 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.0.19
 
@@ -60,8 +60,11 @@ CREATE TABLE `pembayaran` (
 --
 
 INSERT INTO `pembayaran` (`id_pembayaran`, `id_users`, `tgl_bayar`, `bulan_bayar`, `id_spp`, `jumlah_bayar`) VALUES
-(18, 24, '2023-03-12', 'Januari', 2, 350000),
-(19, 24, '2023-03-13', 'Februari', 2, 350000);
+(37, 24, '2023-03-15', 'Januari', 1, 5000000),
+(40, 24, '2023-03-15', 'Februari', 1, 750000),
+(53, 24, '2023-03-15', 'Februari', 1, 700000),
+(75, 24, '2023-03-16', 'Maret', 1, 300000),
+(78, 24, '2023-03-16', 'Maret', 1, 50000);
 
 -- --------------------------------------------------------
 
@@ -80,9 +83,9 @@ CREATE TABLE `spp` (
 --
 
 INSERT INTO `spp` (`id_spp`, `tahun`, `nominal`) VALUES
-(1, '2022', 350000),
-(2, '2023', 350000),
-(5, '2024', 350000);
+(1, '2020-2023', 7200000),
+(2, '2021-2024', 7200000),
+(5, '2022-2025', 7500000);
 
 -- --------------------------------------------------------
 
@@ -130,22 +133,21 @@ CREATE TABLE `users` (
   `level` enum('Admin','Murid','Petugas') NOT NULL,
   `photo` varchar(255) NOT NULL,
   `id_kelas` int(11) DEFAULT NULL,
-  `id_spp` int(11) DEFAULT NULL
+  `id_spp` int(11) DEFAULT NULL,
+  `status` varchar(40) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `nisn`, `nis`, `email`, `password`, `no_telp`, `level`, `photo`, `id_kelas`, `id_spp`) VALUES
-(21, 'admin', '', '', 'mimin@gmail.com', '$2y$10$mbXUDwExVZdjt2ST4.ljw.u/mdDE6XOwvYoXa13jx9dH4myuNhFvC', '089638729422', 'Admin', 'default.png', NULL, NULL),
-(22, 'Juned', NULL, NULL, 'juned@gmail.com', '$2y$10$dUOjkhQVpizoPOCnnlazOOnoAae0lq6WOnkLIlHdh1ppDb4xY9MPq', NULL, 'Petugas', 'default.png', NULL, NULL),
-(23, 'Pahpud', NULL, NULL, 'pahpud@gmail.com', '$2y$10$2qrPjJeogdrhlM4NrUVKw.pem.A.C3f2Axebhx3XkoOJDN8nhw0fy', NULL, 'Petugas', 'default.png', NULL, NULL),
-(24, 'Ariel Audhia Putra', '12345', '12345', 'arielaudhiaputra1225@gmail.com', '$2y$10$TZFjyXFcRMKmwFLhSu8.dOZnFe.zr2iG1nls1iQTQ53Lko90Auxsm', NULL, 'Murid', 'default.png', 2, NULL),
-(25, 'Rizal', '12345', '12345', 'rizal@gmail.com', '$2y$10$f7D7hU3Sz2kgpD19l5KW1edC7A.AJOs2aDvuy5O3n6oQaaNEwL/3u', '089638729422', 'Murid', 'default.png', NULL, NULL),
-(26, 'Reksa', '123456', '123456', 'reksa@gmail.com', '$2y$10$rr617IKQfyubboO/c7uiMeLw3v/ctppJD16qUDcpUfEMK75KwdpEa', NULL, 'Murid', 'default.png', 2, NULL),
-(27, 'Dzul', '12345', '12345', 'dzul@gmail.com', '$2y$10$Lv4t7qX8TzysBGpxEINFwu9vmP2RxbxmRhHHWMGgDwG5A.PXSGSLm', NULL, 'Murid', 'default.png', 2, NULL),
-(28, 'Akbar', '123456', '123456', 'akbar@gmail.com', '$2y$10$MkGLsVsapVer6XWHoFeXWeGNNe2xVa9ZRKWHv76EJWD.GBlUjOYje', NULL, 'Murid', 'default.png', 2, NULL);
+INSERT INTO `users` (`id`, `name`, `nisn`, `nis`, `email`, `password`, `no_telp`, `level`, `photo`, `id_kelas`, `id_spp`, `status`) VALUES
+(23, 'Pahpud', NULL, NULL, 'pahpud@gmail.com', '$2y$10$2qrPjJeogdrhlM4NrUVKw.pem.A.C3f2Axebhx3XkoOJDN8nhw0fy', NULL, 'Petugas', 'default.png', NULL, NULL, NULL),
+(24, 'Ariel Audhia Putra', '12345', '12345', 'arielaudhiaputra1225@gmail.com', '$2y$10$TZFjyXFcRMKmwFLhSu8.dOZnFe.zr2iG1nls1iQTQ53Lko90Auxsm', NULL, 'Murid', 'default.png', 2, 1, 'belum lunas'),
+(25, 'Rizal', '12345', '12345', 'rizal@gmail.com', '$2y$10$f7D7hU3Sz2kgpD19l5KW1edC7A.AJOs2aDvuy5O3n6oQaaNEwL/3u', '089638729422', 'Murid', 'default.png', NULL, 1, 'belum lunas'),
+(26, 'Reksa', '123456', '123456', 'reksa@gmail.com', '$2y$10$rr617IKQfyubboO/c7uiMeLw3v/ctppJD16qUDcpUfEMK75KwdpEa', NULL, 'Murid', 'default.png', 2, 1, 'belum lunas'),
+(27, 'Dzul', '12345', '12345', 'dzul@gmail.com', '$2y$10$Lv4t7qX8TzysBGpxEINFwu9vmP2RxbxmRhHHWMGgDwG5A.PXSGSLm', NULL, 'Murid', 'default.png', 2, 1, 'belum lunas'),
+(28, 'Akbar', '123456', '123456', 'akbar@gmail.com', '$2y$10$MkGLsVsapVer6XWHoFeXWeGNNe2xVa9ZRKWHv76EJWD.GBlUjOYje', NULL, 'Murid', 'default.png', 2, 1, 'belum lunas');
 
 --
 -- Indexes for dumped tables
@@ -199,7 +201,7 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT for table `spp`
